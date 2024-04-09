@@ -3,12 +3,13 @@ class CommentsController < ApplicationController
   def create
     @prototype = Prototype.find(comment_params[:prototype_id])
     @comment = Comment.create(comment_params)
+    @comments = @prototype.comments
     if @comment.save
       redirect_to "/prototypes/#{@comment.prototype.id}"
     else
-      flash[:error] = @comment.errors.full_messages.to_sentence
       render "/prototypes/show", status: :unprocessable_entity
     end
+
   end
 
   private

@@ -1,5 +1,5 @@
 class PrototypesController < ApplicationController
-  before_action :move_to_index, except: [:index, :show]
+  before_action :move_to_new_user_session, except: [:index, :show]
   before_action :authenticate_user!, only: [:new, :edit, :destroy]
 
   def index
@@ -52,7 +52,7 @@ class PrototypesController < ApplicationController
     params.require(:prototype).permit(:title, :catch_copy, :concept, :image).merge(user_id: current_user.id)
   end
 
-  def move_to_index
-    redirect_to root_path unless user_signed_in?
+  def move_to_new_user_session
+    redirect_to new_user_session_path unless user_signed_in?
   end
 end
